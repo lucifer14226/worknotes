@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "750278780765",
+    "project_id": "worknotes-flutter-project",
+    "storage_bucket": "worknotes-flutter-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750278780765:android:03c2eb7c3a5324fbf1aab4",
+        "android_client_info": {
+          "package_name": "com.firstapp.worknotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750278780765-a27a5j1nrn939h6uhm82kbl832f7t3vp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCL0ewlf0Cj5iGSdXIz7loUKBh3Dim5NGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750278780765-a27a5j1nrn939h6uhm82kbl832f7t3vp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
