@@ -14,6 +14,10 @@ void main() {
         primarySwatch: Colors.blue,
       ),
       home: const Homepage(),
+      routes: {
+        '/login': (context) => const LoginView(),
+        '/register': (context) => const RegisterView()
+      },
     ),
   );
 }
@@ -22,26 +26,52 @@ class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
   Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            // final user = FirebaseAuth.instance.currentUser;
+            // print(user);
+            // if (user?.emailVerified ?? false) {
+            // } else {
+            //   return const VerifyMyEmail();
+            // }
+            // return const Text('Done');
+            return const LoginView();
+          default:
+            return const CircularProgressIndicator();
+        }
+      },
+    );
+  }
+}
+
+class VerifyMyEmail extends StatefulWidget {
+  const VerifyMyEmail({Key? key}) : super(key: key);
+
+  @override
+  State<VerifyMyEmail> createState() => _VerifyMyEmailState();
+}
+
+class _VerifyMyEmailState extends State<VerifyMyEmail> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home Page')),
-      body: FutureBuilder(
-        future: Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        ),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
+      appBar: AppBar(title: const Text('EMaail Verifiacction')),
+      body: Column(
+        children: [
+          const Text('Please Verify Your Email Address:'),
+          TextButton(
+            onPressed: () async {
               final user = FirebaseAuth.instance.currentUser;
-              if (user!.emailVerified) {
-                print("You are verified user");
-              } else {
-                print("You need to verify your email first");
-              }
-              return const Text('Done');
-            default:
-              return const Text('Loading....');
-          }
-        },
+              await user?.sendEmailVerification();
+            },
+            child: const Text("Send Email Verification"),
+          )
+        ],
       ),
     );
   }

@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:worknotes/main.dart';
+//import 'package:worknotes/main.dart';
 import 'package:worknotes/views/register_view.dart';
 
 void main() {
