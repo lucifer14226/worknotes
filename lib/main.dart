@@ -22,7 +22,8 @@ void main() {
       home: const Homepage(),
       routes: {
         '/login': (context) => const LoginView(),
-        '/register': (context) => const RegisterView()
+        '/register': (context) => const RegisterView(),
+        '/notes': (context) => const NotesView()
       },
     ),
   );
@@ -31,6 +32,7 @@ void main() {
 class Homepage extends StatelessWidget {
   const Homepage({Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Firebase.initializeApp(
