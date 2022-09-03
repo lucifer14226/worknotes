@@ -12,7 +12,7 @@ class _VerifyMyEmailState extends State<VerifyMyEmail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('EMaail Verifiacction')),
+      appBar: AppBar(title: const Text('Email Verification')),
       body: Column(
         children: [
           const Text('Please Verify Your Email Address:'),
