@@ -1,5 +1,6 @@
 import 'package:worknotes/services/auth/auth_services.dart';
-import 'package:worknotes/views/notes_view.dart';
+import 'package:worknotes/views/notes/new_notes_view.dart';
+import 'package:worknotes/views/notes/notes_view.dart';
 import 'package:flutter/material.dart';
 import 'package:worknotes/constants/routes.dart';
 import 'package:worknotes/views/login_view.dart';
@@ -21,6 +22,7 @@ void main() {
         registerRoutes: (context) => const RegisterView(),
         notesRoutes: (context) => const NotesView(),
         verifyemail: (context) => const VerifyMyEmail(),
+        newNotesRoutes: (context) => const NewNotesView(),
       },
     ),
   );
