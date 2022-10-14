@@ -123,7 +123,7 @@ class MockAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitiaLizedException();
     final user = _user;
     if (user == null) throw UserNotFoundAuthException();
-    const newUser = AuthUser(email: null, isEmailVerified: true);
+    const newUser = AuthUser(email: "foo@bar.com", isEmailVerified: true);
     _user = newUser;
   }
 }

@@ -22,7 +22,7 @@ void main() {
         registerRoutes: (context) => const RegisterView(),
         notesRoutes: (context) => const NotesView(),
         verifyemail: (context) => const VerifyMyEmail(),
-        newNotesRoutes: (context) => const NewNotesView(),
+        newNotesRoutes: (context) => const NewNotes()
       },
     ),
   );
