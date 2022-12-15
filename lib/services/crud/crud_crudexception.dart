@@ -15,3 +15,5 @@ class CouldNotDeleteUser implements Exception {}
 class CouldNotFindUser implements Exception {}
 
 class UserAlreadyExistException implements Exception {}
+
+class UserShouldBeSetBeforeReadingAllNotes implements Exception {}
