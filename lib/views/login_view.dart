@@ -3,11 +3,13 @@
 //import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 //import 'dart:developer' as devtools show log;
 
 import 'package:worknotes/constants/routes.dart';
 import 'package:worknotes/services/auth/auth_exception.dart';
-import 'package:worknotes/services/auth/auth_services.dart';
+import 'package:worknotes/services/auth/bloc/auth_bloc.dart';
+import 'package:worknotes/services/auth/bloc/auth_event.dart';
 import 'package:worknotes/utilities/dialog/error_dialog.dart';
 
 //import 'package:worknotes/firebase_options.dart';
@@ -61,22 +63,10 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                await AuthServices.firebase().logIn(
-                  email: email,
-                  password: password,
-                );
-                final user = AuthServices.firebase().currentUser;
-                if (user?.isEmailVerified ?? false) {
-                  //user's email is verified
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(notesRoutes, (route) => false);
-                } else {
-                  //user's email is not verified
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context)
-                      .pushNamedAndRemoveUntil(verifyemail, (route) => false);
-                }
+                context.read<AuthBloc>().add(AuthEventLogin(
+                      email,
+                      password,
+                    ));
                 // ignore: use_build_context_synchronously
               } on UserNotFoundAuthException {
                 await showErrorDialog(
