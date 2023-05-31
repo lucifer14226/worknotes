@@ -9,7 +9,6 @@ import 'package:worknotes/services/cloud/clout_store_note.dart';
 import 'package:worknotes/services/cloud/firebase_cloud_storeage.dart';
 import 'package:worknotes/utilities/dialog/logout_dialog.dart';
 import 'package:worknotes/views/notes/notes_list_view.dart';
-import 'package:bloc/bloc.dart';
 
 class NotesView extends StatefulWidget {
   const NotesView({Key? key}) : super(key: key);
