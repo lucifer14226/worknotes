@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 
 import 'package:worknotes/services/auth/auth_provider.dart';
+import 'package:worknotes/services/auth/bloc/a_state.dart';
 import 'package:worknotes/services/auth/bloc/auth_event.dart';
 
-import 'a_state.dart';
-
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(AuthProvider provider) : super(const AuthStateUninitialized()) {
+  AuthBloc(AuthProvider provider)
+      : super(const AuthStateUninitialized(isLoading: true)) {
     //sendEmailVerifications
 
     on<AuthEventSendVerfication>((event, emit) async {
@@ -22,17 +22,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           const AuthStateLoggedOut(
             exception: null,
             isLoading: false,
+            loadingText: null,
           ),
         );
       } else if (!user.isEmailVerified) {
-        emit(const AuthStateNeedVerification());
+        emit(const AuthStateNeedVerification(isLoading: false));
       } else {
-        emit(AuthStateLoggedIn(user));
+        emit(AuthStateLoggedIn(user: user, isLoading: false));
       }
     });
 
     on<AuthEventShouldRegister>((event, emit) {
-      emit(const AuthStateRegistering(null));
+      emit(const AuthStateRegistering(exception: null, isLoading: false));
     });
 
     //Register
@@ -42,9 +43,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         await provider.createUser(email: email, password: password);
         await provider.sendEmailVerification();
-        emit(const AuthStateNeedVerification());
+        emit(const AuthStateNeedVerification(
+          isLoading: false,
+        ));
       } on Exception catch (e) {
-        emit(AuthStateRegistering(e));
+        emit(AuthStateRegistering(
+          exception: e,
+          isLoading: false,
+        ));
       }
     });
     //login
@@ -53,6 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         const AuthStateLoggedOut(
           exception: null,
           isLoading: true,
+          loadingText: 'Please Wait till I log in',
         ),
       );
       final email = event.email;
@@ -68,23 +75,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             const AuthStateLoggedOut(
               exception: null,
               isLoading: false,
+              loadingText: null,
             ),
           );
-          emit(const AuthStateNeedVerification());
+          emit(const AuthStateNeedVerification(isLoading: false));
         } else {
           emit(
             const AuthStateLoggedOut(
               exception: null,
               isLoading: false,
+              loadingText: null,
             ),
           );
         }
-        emit(AuthStateLoggedIn(user));
+        emit(AuthStateLoggedIn(user: user, isLoading: false));
       } on Exception catch (e) {
         emit(
           AuthStateLoggedOut(
             exception: e,
             isLoading: false,
+            loadingText: 'null',
           ),
         );
       }
@@ -98,10 +108,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           const AuthStateLoggedOut(
             exception: null,
             isLoading: false,
+            loadingText: null,
           ),
         );
       } on Exception catch (e) {
-        emit(AuthStateLoggedOut(exception: e, isLoading: false));
+        emit(AuthStateLoggedOut(
+          exception: e,
+          isLoading: false,
+          loadingText: null,
+        ));
       }
     });
   }

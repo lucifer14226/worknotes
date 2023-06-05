@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worknotes/helpers/loading/loading_screen.dart';
 import 'package:worknotes/services/auth/bloc/auth_bloc.dart';
 import 'package:worknotes/services/auth/bloc/auth_event.dart';
 import 'package:worknotes/services/auth/bloc/a_state.dart';
@@ -39,7 +40,17 @@ class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<AuthBloc>().add(const AuthEventInitialize());
-    return BlocBuilder<AuthBloc, AuthState>(
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.isLoading) {
+          debugPrint("I am being called?");
+          LoadingScreen().show(
+              context: context, text: state.isText ?? 'Please wait moment');
+        } else {
+          debugPrint("I am being called");
+          LoadingScreen().hide();
+        }
+      },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
           return const NotesView();
