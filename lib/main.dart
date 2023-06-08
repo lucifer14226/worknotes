@@ -4,6 +4,7 @@ import 'package:worknotes/services/auth/bloc/auth_bloc.dart';
 import 'package:worknotes/services/auth/bloc/auth_event.dart';
 import 'package:worknotes/services/auth/bloc/a_state.dart';
 import 'package:worknotes/services/auth/firebaase_auth_provider.dart';
+import 'package:worknotes/views/forgot_password_view.dart';
 import 'package:worknotes/views/notes/create_update_notes_view.dart';
 import 'package:worknotes/views/notes/notes_view.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,8 @@ class Homepage extends StatelessWidget {
           return const LoginView();
         } else if (state is AuthStateRegistering) {
           return const RegisterView();
+        } else if (state is AuthStateForgotPassword) {
+          return const ForgotPasswordView();
         } else {
           return const Scaffold(
             body: CircularProgressIndicator(),
